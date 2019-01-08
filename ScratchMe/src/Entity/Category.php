@@ -22,9 +22,9 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="category_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
      */
-    private $product;
+    private $products;
 
     public function getId(): ?int
     {

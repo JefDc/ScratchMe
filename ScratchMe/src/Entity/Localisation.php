@@ -31,10 +31,6 @@ class Localisation
      */
     private $longitude;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="localisation_id")
-     */
-    private $product;
 
     public function getId(): ?int
     {
@@ -77,15 +73,4 @@ class Localisation
         return $this;
     }
 
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
 }

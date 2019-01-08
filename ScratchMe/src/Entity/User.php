@@ -58,11 +58,11 @@ class User
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="user", orphanRemoval=true)
      */
-    private $product�_id;
+    private $product_id;
 
     public function __construct()
     {
-        $this->product�_id = new ArrayCollection();
+        $this->product_id = new ArrayCollection();
     }
 
     public function getId(): ?int

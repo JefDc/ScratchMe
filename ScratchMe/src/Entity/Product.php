@@ -34,31 +34,69 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="productÂ_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="productï¿½_id")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="product")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
-    private $category_id;
+    private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Localisation", mappedBy="product")
+     * @return mixed
      */
-    private $localisation_id;
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param mixed $location
+     */
+    public function setLocation($location): void
+    {
+        $this->location = $location;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Localisation")
+     */
+    private $location;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Image")
      */
     private $image_id;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image")
+     */
+    private $image;
+
     public function __construct()
     {
         $this->category_id = new ArrayCollection();
         $this->localisation_id = new ArrayCollection();
         $this->image_id = new ArrayCollection();
+        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,26 +217,27 @@ class Product
     /**
      * @return Collection|Image[]
      */
-    public function getImageId(): Collection
+    public function getImage(): Collection
     {
-        return $this->image_id;
+        return $this->image;
     }
 
-    public function addImageId(Image $imageId): self
+    public function addImage(Image $image): self
     {
-        if (!$this->image_id->contains($imageId)) {
-            $this->image_id[] = $imageId;
+        if (!$this->image->contains($image)) {
+            $this->image[] = $image;
         }
 
         return $this;
     }
 
-    public function removeImageId(Image $imageId): self
+    public function removeImage(Image $image): self
     {
-        if ($this->image_id->contains($imageId)) {
-            $this->image_id->removeElement($imageId);
+        if ($this->image->contains($image)) {
+            $this->image->removeElement($image);
         }
 
         return $this;
     }
+
 }
