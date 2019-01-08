@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        $nameCategory = [
+        $nameCategories = [
             'Deep House',
             'House',
             'Tech House',
@@ -29,15 +29,15 @@ class AppFixtures extends Fixture
             $image->setUrl($faker->imageUrl('300'));
 
             $manager->persist($image);
-            $this->addReference('image'.$i, $image);
+            $this->addReference('image' . $i, $image);
         }
 
-        for ($i = 0; $i < 5; $i++) {
+        foreach ($nameCategories as $key => $nameCategory) {
             $category = new Category();
-            $category->setName($nameCategory[array_rand($nameCategory)]);
+            $category->setName($nameCategory);
 
             $manager->persist($category);
-            $this->addReference('category'.$i, $category);
+            $this->addReference('category' . $key, $category);
         }
 
         for ($i = 0; $i < 51; $i++) {
@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
             $location->setLongitude($faker->longitude);
 
             $manager->persist($location);
-            $this->addReference('location'.$i, $location);
+            $this->addReference('location' . $i, $location);
         }
 
         for ($i = 0; $i < 1; $i++) {
@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
             $user->setEmail('jefdc05@gmail.com');
             $user->setPhone('0685777092');
             $user->setRoles(["ROLE_ADMIN"]);
-            $user->setImageId($this->getReference('image'.rand(0, 49)));
+            $user->setImageId($this->getReference('image' . rand(0, 49)));
             $user->setLocalisationId($this->getReference('location50'));
 
             $manager->persist($user);
@@ -70,9 +70,9 @@ class AppFixtures extends Fixture
             $product->setDescription($faker->text);
             $product->setPrice($faker->randomFloat());
             $product->setUser($this->getReference('JefDc'));
-            $product->setCategory($this->getReference('category'.rand(0, 4)));
-            $product->setLocation($this->getReference('location'.rand(0, 49)));
-            $product->addImage($this->getReference('image'.rand(0, 49)));
+            $product->setCategory($this->getReference('category' . rand(0, 4)));
+            $product->setLocation($this->getReference('location' . rand(0, 49)));
+            $product->addImage($this->getReference('image' . rand(0, 49)));
 
             $manager->persist($product);
         }
